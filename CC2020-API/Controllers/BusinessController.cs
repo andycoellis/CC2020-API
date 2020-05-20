@@ -89,18 +89,28 @@ namespace CC2020_API.Controllers
         }
 
         [HttpPost]
-        [Route("AddPayAgreement")]
-        public ActionResult Post([FromBody]PayAgreement agreement)
+        [Route("AddPayAgreement/{abn}/{empId}/{payRate}")]
+        public ActionResult Post(long abn, string empID, int payRate)
         {
             try
             {
-                var check_emp = unitOfWork.Employees.SingleOrDefault(x => x.Id == agreement.EmployeeID);
-                var check_cmp = unitOfWork.Companies.SingleOrDefault(x => x.ABN == agreement.CompanyABN);
+                var check_emp = unitOfWork.Employees.SingleOrDefault(x => x.Id == empID);
+                var check_cmp = unitOfWork.Companies.SingleOrDefault(x => x.ABN == abn);
 
                 if(check_emp == null || check_cmp == null)
                 {
                     return BadRequest("Employee or Company does not exist in system");
                 }
+                var agreement = new PayAgreement
+                {
+                    DateCreated = DateTime.Now,
+                    EmployeeID = empID,
+                    CompanyABN = abn,
+                    PayRate = payRate,
+                    SaturdayRate = 1.2,
+                    SundayRate = 1.5,
+                    PublicHolidayRate = 1.9                    
+                };
 
                 unitOfWork.PayAgreements.Add(agreement);
                 var response = unitOfWork.Complete();
@@ -120,14 +130,15 @@ namespace CC2020_API.Controllers
         }
                     
         [HttpPost]
-        [Route("UpdateAgreement/{abn}/{empId}")]
-        public ActionResult Put(long abn, string empId, [FromBody]PayAgreement agreement)
+        [Route("UpdateAgreement/{abn}/{empId}/{payRate}")]
+        public ActionResult Put(long abn, string empId, int payRate)
         {
             try
             {
                 var stored_agreement = unitOfWork.PayAgreements
                     .SingleOrDefault(x => x.CompanyABN == abn && x.EmployeeID  == empId);
-                stored_agreement.PayRate = agreement.PayRate;
+
+                stored_agreement.PayRate = payRate;
 
                 var response = unitOfWork.Complete();
 
