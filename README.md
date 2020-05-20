@@ -6,7 +6,7 @@
 
 #### Application Features
 ---
-+ **Business Controller API:** 
+**Business Controller API:** 
 >+ *Get all Companies Pay Slips*
 + *Get a Companies Employee Pay slip*
 + *Get all Companies Pay Agreements*
