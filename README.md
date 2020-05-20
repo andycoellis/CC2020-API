@@ -4,8 +4,7 @@
 > Andrew Ellis - s3747746
 <br>Shrey Parekh - s3710669
 
-#### Application Features
----
+### Application Features
 **Business Controller API:** 
 >+ *Get all Companies Pay Slips*
 >+ *Get a Companies Employee Pay slip*
