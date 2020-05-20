@@ -1,4 +1,4 @@
-## COSC2626 Cloud Computing Assignment 02
+## COSC2626 Cloud Computing Assignment 02 *API*
 *RMIT University Melbourne*
 <br>**group members:**
 > Andrew Ellis - s3747746
